@@ -6,8 +6,8 @@ on:
     branches-ignore: [user1]
   workflow_dispatch:
   workflow_call:
-  schedule:
-    - cron: '*/2 * * * *'
+  # schedule:
+  #   - cron: '*/2 * * * *'
  
     
 jobs:
@@ -16,4 +16,12 @@ jobs:
     steps:
       - name: just a execution
         run: echo "Hello"
+  test-matrix:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: 
+        os: [ubuntu-latest, windows-latest]
+        java-version: [17,21]
+    steps:
+      - uses: actions/checkout@v4.2.2
       
