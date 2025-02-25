@@ -2,6 +2,7 @@ name: 25-02-25 - Events workflow
 on: 
   push: 
     branches: [main]
+  pull_request:
     branches-ignore: [user1]
   workflow_dispatch:
   workflow_call:
