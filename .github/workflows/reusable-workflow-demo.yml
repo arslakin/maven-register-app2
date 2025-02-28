@@ -10,3 +10,5 @@ jobs:
         run: echo 'job from current workflow'
   job-from-different-workflow:
     uses:  NidaAP/maven-register-app/.github/workflows/eventsworkflow.yml@main 
+  workflow-from-different-repository:
+    uses: NidaAP/register-app-maven/.github/workflows/firstaction.yml@main
