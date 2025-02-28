@@ -8,10 +8,10 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v4.2.2
       - name: run a script
-        run: echo "Running on a self-hosted runner"
+        run: cmd /c echo "Running on a self-hosted runner"
   different-label:
     runs-on: nida-machine
     steps: 
     - name: display a message
-      run: echo "working perfectly fine"
+      run: cmd /c echo "working perfectly fine"
 
