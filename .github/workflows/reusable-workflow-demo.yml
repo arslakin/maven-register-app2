@@ -17,6 +17,16 @@ jobs:
         with: 
           name: sample-text-file
           path: sample.txt
+  download-artifact:
+    runs-on: ubuntu-latest
+    needs: job-from-current-workflow
+    steps: 
+      - name: Download-artifact
+        uses: actions/download-artifact@v4.1.9
+        with: 
+          name: sample-text-file
+      - name: list the files in the current directory
+        run: ls -l
   job-from-different-workflow:
     uses:  NidaAP/maven-register-app/.github/workflows/eventsworkflow.yml@main 
   workflow-from-different-repository:
