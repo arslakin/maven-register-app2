@@ -1,0 +1,12 @@
+name: 28-02-2025 reusable workflows demo
+on: 
+  push:
+    branches: [main]
+jobs: 
+  job-from-current-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: display message
+        run: echo 'job from current workflow'
+  job-from-different-workflow:
+    uses:  NidaAP/maven-register-app/.github/workflows/eventsworkflow.yml@main 
