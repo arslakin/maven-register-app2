@@ -8,6 +8,15 @@ jobs:
     steps:
       - name: display message
         run: echo 'job from current workflow'
+      - name: checkout repository
+        uses: actions/checkout@v4.2.2
+      - name: create a sample file
+        run: echo "Hello, artifact" > sample.txt
+      - name: upload artifact
+        uses: actions/upload-artifact@v4.6.1 
+        with: 
+          name: sample-text-file
+          path: sample.txt
   job-from-different-workflow:
     uses:  NidaAP/maven-register-app/.github/workflows/eventsworkflow.yml@main 
   workflow-from-different-repository:
