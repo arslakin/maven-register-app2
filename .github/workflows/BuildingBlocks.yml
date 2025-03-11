@@ -27,7 +27,7 @@ jobs:
       - name: successful step
         run: |
           echo "I will succed"
-          exit o
+          exit 0
       - name: say goodbye
         run: echo "Goodbye!"
   
