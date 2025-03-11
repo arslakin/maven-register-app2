@@ -1,0 +1,33 @@
+name: Building Blocks
+on: 
+  pull_request:
+    branches-ignore: [ main ]
+  push:
+    branches-ignore: [ main ]
+  # schedule:
+  #   - cron: '* * * * *'
+  workflow_dispatch:
+jobs:
+  trigger_name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show the trigger event
+        run: echo " I have been triggered ${{ github.event_name }} event"
+  echo-hello:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: say hello!
+        run: |
+          echo "Hello World"
+          exit 0
+  echo-goodbye:
+    needs: echo-hello
+    runs-on: ubuntu-latest
+    steps:
+      - name: successful step
+        run: |
+          echo "I will succed"
+          exit o
+      - name: say goodbye
+        run: echo "Goodbye!"
+  
