@@ -1,0 +1,12 @@
+name: Sample workflow
+on: [push]
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      - name: Print a message
+        run: echo "Hellp, Github Actions!"
+      
