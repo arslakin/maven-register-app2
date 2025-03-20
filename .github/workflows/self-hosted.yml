@@ -11,6 +11,7 @@ jobs:
         run: echo "Running on a self-hosted runner"
   different-label:
     runs-on: akin-machine
+    needs: self-hosted-job
     steps: 
     - name: display a message
       run: echo "working perfectly fine"
