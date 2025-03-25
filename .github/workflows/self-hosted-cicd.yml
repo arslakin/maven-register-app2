@@ -1,0 +1,17 @@
+name: Self hosted CICD
+on:
+  push
+jobs:
+  clean:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: clean job
+        run: mvn clean
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: clean-artifact
+          path: .
+          
