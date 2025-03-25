@@ -14,4 +14,88 @@ jobs:
         with:
           name: clean-artifact
           path: .
-          
+  compile:
+    runs-on: self-hosted
+    needs: clean
+    steps: 
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.2.1
+        with:
+          name: clean-artifact
+      - name: compile job
+        run: mvn compile
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: compile-artifact
+          path: .
+  staticanalysis:
+      needs: compile
+      uses: arslakin/maven-register-app2/.github/workflows/sonarcloud-analysis.yml@main
+      with: 
+        projectKey: "arslakin_mavenr-register-app2"
+        organization: arslakin
+      secrets:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  unittesting:
+      runs-on: self-hosted
+      needs: staticanalysis
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: unit testing job
+        run: mvn test
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: unittesting-artifact
+          path: .
+  build:
+      runs-on: self-hosted
+      needs: unittesting
+      steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.2.1
+        with:
+          name: unittesting-artifact
+      - name: Build package job
+        run: mvn package
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: build-artifact
+          path: .
+  docker-image:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.2.1
+        with:
+          name: build-artifact
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: 
+            akinarslan/githubactions-docker-image:latest
+            akinarslan/githubactions-docker-image:${{ github.run_number }}
+  
+   
