@@ -15,5 +15,5 @@ jobs:
           -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.organization=arslakin \
-          -Dsonar.projectKey=arslakin_maven-register-app2        
+          -Dsonar.projectKey=arslakin_maven-register-app2
     
