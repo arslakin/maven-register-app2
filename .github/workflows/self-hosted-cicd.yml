@@ -31,9 +31,9 @@ jobs:
           path: .
   staticanalysis:
       needs: compile
-      uses: arslakin/maven-register-app2/.github/workflows/sonarcloud-analysis.yml@main
+      uses: arslakin/maven-register-app2/.github/workflows/2-sonarcloud-analysis.yml@main
       with: 
-        projectKey: "arslakin_mavenr-register-app2"
+        projectKey: "arslakin_maven-register-app2"
         organization: arslakin
       secrets:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
