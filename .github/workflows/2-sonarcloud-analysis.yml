@@ -1,5 +1,16 @@
 name: Self hosted runner with sonarcloud
-on: [workflow_dispatch]
+on: 
+  workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+    inputs:
+      projectKey:
+        required: true
+        type: string
+      organization:
+        required: true
+        type: string
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
@@ -14,6 +25,6 @@ jobs:
           mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.organization=arslakin \
-          -Dsonar.projectKey=arslakin_maven-register-app2
+          -Dsonar.organization=${{ inputs.organization }} \
+          -Dsonar.projectKey=${{ inputs.projectKey }} 
     
