@@ -1,7 +1,6 @@
 name: Self hosted CICD
 on:
-  workflow_dispatch:
-    
+  workflow_dispatch:    
 jobs:
   clean:
     runs-on: self-hosted
